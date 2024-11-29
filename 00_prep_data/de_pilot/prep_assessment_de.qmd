@@ -2,6 +2,7 @@
 library(tidyverse)
 library(glue)
 library(here)
+library(rlevante)
 ```
 
 ```{r datasets}
@@ -15,9 +16,10 @@ dataset_data <- rlevante::combine_datasets(dataset_tables)
 
 ```{r participants}
 users <- rlevante::collect_users(dataset_data)
+# Deleted groups & ages as they doesn't exist in users
 participants <- users |>
   filter(user_type %in% c("guest", "student")) |>
-  select(user_id, birth_month, birth_year, sex, grade, matches("_id"), groups, ages)
+  select(user_id, birth_month, birth_year, sex, grade, matches("_id"))
 ```
 
 ```{r trials}
